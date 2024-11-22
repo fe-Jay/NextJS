@@ -3,7 +3,6 @@ import { API_URL } from '@/utils/constants';
 import styles from '@/app/styles/movie-video.module.css';
 
 async function getVideos(id: string) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   // throw new Error('Failed to fetch videos'); // 에러 처리 테스트
   const response = await fetch(`${API_URL}/${id}/videos`);
   const json = await response.json();
