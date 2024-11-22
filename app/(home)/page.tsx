@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Movie from '../../components/movie';
+import styles from '@/app/styles/home.module.css';
+
 export const metadata: Metadata = {
   title: '⚡️ Home',
 };
@@ -39,11 +42,12 @@ const HomePage = async () => {
       {/* {isLoading ? <h1>⏳ Loading...</h1> : JSON.stringify(movies)} */}
       <article>
         <h1>Movies</h1>
-        {movies.map((movie: Movie) => (
-          <li key={movie.id}>
-            <Link href={`movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
+        <ul className={styles.container}>
+          {movies.map((movie: Movie) => {
+            const { id, poster_path, title } = movie;
+            return <Movie id={id} poster_path={poster_path} title={title} />;
+          })}
+        </ul>
       </article>
     </>
   );

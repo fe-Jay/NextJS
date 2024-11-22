@@ -4,10 +4,18 @@ import { Suspense } from 'react';
 import { API_URL } from '@/app/(home)/page';
 import MovieInfo from '@/components/movie-info';
 import MovieVideos from '@/components/movie-videos';
-
-export const metadata: Metadata = {
-  title: '🍿 MovieDetail',
+import { getMovie } from '@/components/movie-info';
+type IParams = {
+  params: { id: string };
 };
+
+// 동적 메타데이터 생성
+export async function generateMetadata({ params: { id } }: IParams) {
+  const movie = await getMovie(id);
+  return {
+    title: movie.title,
+  };
+}
 
 // https://nextjs.org/docs/messages/sync-dynamic-apis
 const MovieDetail = async ({ params }: { params: { id: string } }) => {
