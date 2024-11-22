@@ -1,5 +1,5 @@
 import React from 'react';
-import { API_URL } from '@/app/(home)/page';
+import { API_URL } from '@/utils/constants';
 import styles from '@/app/styles/movie-info.module.css';
 
 export async function getMovie(id: string) {
