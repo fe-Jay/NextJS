@@ -5,20 +5,23 @@ import MovieInfo from '@/components/movie-info';
 import MovieVideos from '@/components/movie-videos';
 import { getMovie } from '@/components/movie-info';
 
-type IParams = {
-  params: { id: string };
-};
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
 
-export async function generateMetadata({ params: { id } }: IParams) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
   const movie = await getMovie(id);
   return {
     title: movie.title,
   };
 }
 
-const MovieDetail = async ({ params }: { params: { id: string } }) => {
+export default async function MovieDetail({ params }: PageProps) {
   const { id } = await params;
-
+  
   return (
     <article>
       <Suspense fallback={<div>Loading Movie Info...</div>}>
@@ -29,6 +32,4 @@ const MovieDetail = async ({ params }: { params: { id: string } }) => {
       </Suspense>
     </article>
   );
-};
-
-export default MovieDetail;
+}
